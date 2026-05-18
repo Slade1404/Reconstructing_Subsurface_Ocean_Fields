@@ -1,0 +1,7 @@
+tensorflow>=2.10.0
+numpy
+xarray
+netCDF4
+tqdm
+pyyaml
+matplotlib

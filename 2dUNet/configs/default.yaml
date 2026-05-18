@@ -1,0 +1,34 @@
+data:
+  glorys_path: "d:/Mlpr_project/data/bob_1_4_cache/cmems_glorys_preprocessed.nc"
+  sst_path: "d:/Mlpr_project/data/bob_1_4_cache/cmems_sst_preprocessed.nc"
+  sss_path: "d:/Mlpr_project/data/bob_1_4_cache/cmems_sss_preprocessed.nc"
+  sla_uv_path: "d:/Mlpr_project/data/bob_1_4_cache/cmems_sla_ugos_vgos_preprocessed.nc"
+  wind_path: "d:/Mlpr_project/data/bob_1_4_cache/cmems_wind_preprocessed.nc"
+  argo_path: "d:/Mlpr_project/data/bob_1_4_cache/Argov2preprocessed.nc"
+  full_map: true
+  patch_size: 88
+  batch_size: 16
+  num_workers: 4
+  time_train: ["2023-01-01", "2024-12-31"]
+  time_test: ["2025-01-01", "2025-12-31"]
+  train_samples: 731
+  val_samples: 365
+
+model:
+  name: "unet2d_bob_1_4"
+  features: ["SST", "SSS", "SLA", "UGOS", "VGOS", "TAUX", "TAUY", "CURL"]
+  in_channels: 8
+  out_channels: 52
+  filters: [32, 64, 128, 256]
+  dropout_rate: 0.0
+  weight_decay: 0.001
+
+training:
+  epochs: 50
+  learning_rate: 0.001
+  use_argo_loss: false
+  lambda_surface: 0.5
+  lambda_stability: 0.05
+  checkpoint_dir: "checkpoints/bob_1_4"
+  results_dir: "results/bob_1_4"
+  backup_dir: "backups/bob_1_4"
